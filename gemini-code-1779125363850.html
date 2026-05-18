@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cher's Electronic Closet</title>
+    <style>
+        :root {
+            --clueless-yellow: #f3df6d;
+            --clueless-pink: #ffb7ce;
+            --screen-bg: #111122;
+            --grid-line: #2a2a50;
+            
+            /* Outfit Colors */
+            --plaid-yellow: #f1da4e;
+            --plaid-dark: #333322;
+            --alaia-red: #d62828;
+            --gym-black: #1a1a1a;
+            --gym-white: #ffffff;
+        }
+
+        body {
+            background-color: #252530;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        /* 90s Desktop Monitor Chassis */
+        .computer-container {
+            background: linear-gradient(135deg, #e6e6e6, #aeaeae);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 3px 5px #fff;
+            border: 5px solid #888;
+            width: 460px;
+        }
+
+        /* Wardrobe Program Header Bar */
+        .closet-header {
+            background-color: var(--clueless-pink);
+            color: #000;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            border: 3px inset #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        /* CRT Screen Simulation */
+        .closet-screen {
+            background-color: var(--screen-bg);
+            border: 12px solid #222;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,1);
+            position: relative;
+        }
+
+        /* The Grid-Line Alignment Matrix */
+        .wardrobe-matrix {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-image: linear-gradient(var(--grid-line) 1.5px, transparent 1.5px),
+                              linear-gradient(90deg, var(--grid-line) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
+            padding: 15px;
+            border: 3px solid var(--grid-line);
+            background-position: center;
+        }
+
+        /* Rows holding the clothing containers */
+        .clothing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #444;
+            padding: 5px;
+            height: 140px;
+            position: relative;
+        }
+
+        /* Retro Navigation Buttons */
+        .nav-btn {
+            background-color: var(--clueless-yellow);
+            color: #000;
+            border: 3px outset #fff;
+            font-weight: bold;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0 15px;
+            height: 70%;
+            z-index: 10;
+            transition: background 0.1s;
+        }
+
+        .nav-btn:active {
+            border-style: inset;
+            background-color: #ebd03f;
+        }
+
+        /* Image Display Window */
+        .item-display {
+            width: 65%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- PURE CSS CLOTHING GRAPHICS --- */
+        .clothing-art {
+            width: 120px;
+            height: 120px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Yellow Plaid Texture Pattern */
+        .pattern-plaid {
+            background-color: var(--plaid-yellow);
+            background-image: 
+                linear-gradient(90deg, transparent 50%, rgba(50,50,30,0.5) 50%),
+                linear-gradient(transparent 50%, rgba(50,50,30,0.5) 50%),
+                linear-gradient(90deg, rgba(255,255,255,0.6) 10%, transparent 10%),
+                linear-gradient(rgba(255,255,255,0.6) 10%, transparent 10%);
+            background-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+        }
+
+        /* Tops styling */
+        .top-blazer {
+            width: 70px;
+            height: 90px;
+            border-radius: 5px 5px 20px 20px;
+            border: 2px solid #000;
+            box-shadow: inset 0 20px 0 rgba(255,255,255,0.9); /* Inner white shirt look */
+        }
+        .top-alaia {
+            width: 60px;
+            height: 90px;
+            background-color: var(--alaia-red);
+            border-radius: 20px 20px 5px 5px;
+            border: 2px solid #000;
+            clip-path: polygon(15% 0%, 85% 0%, 100% 30%, 80% 35%, 80% 100%, 20% 100%, 20% 35%, 0% 30%);
+        }
+        .top-gym {
+            width: 65px;
+            height: 80px;
+            background-color: var(--gym-black);
+            border: 2px solid #000;
+            border-radius: 5px;
+            box-shadow: inset 0 25px 0 var(--gym-white); /* White crop top over black tank */
+        }
+
+        /* Bottoms styling */
+        .bottom-skirt {
+            width: 80px;
+            height: 70px;
+            border: 2px solid #000;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%);
+        }
+        .bottom-alaia {
+            width: 58px;
+            height: 75px;
+            background-color: var(--alaia-red);
+            border: 2px solid #000;
+            border-radius: 0 0 5px 5px;
+        }
+        .bottom-gym {
+            width: 60px;
+            height: 80px;
+            background-color: var(--gym-black);
+            border: 2px solid #000;
+            clip-path: polygon(15% 0%, 85% 0%, 95% 45%, 55% 50%, 50% 100%, 45% 50%, 5% 45%); /* Bike shorts / track pants split */
+        }
+
+        /* Shoes styling */
+        .shoes-container {
+            display: flex;
+            gap: 15px;
+        }
+        .shoe-plaid {
+            width: 30px;
+            height: 40px;
+            border: 2px solid #000;
+            border-radius: 20px 10px 5px 5px;
+            box-shadow: inset 0 -15px 0 #fff; /* High white socks! */
+        }
+        .shoe-red {
+            width: 35px;
+            height: 25px;
+            background-color: var(--alaia-red);
+            border: 2px solid #000;
+            border-radius: 5px 15px 5px 5px; /* Strappy heels shape */
+        }
+        .shoe-gym {
+            width: 38px;
+            height: 28px;
+            background-color: var(--gym-white);
+            border: 2px solid #444;
+            border-radius: 10px 20px 5px 5px;
+            box-shadow: inset 5px -5px 0 var(--gym-black); /* Sneaker details */
+        }
+
+        /* Matchmaker Notification Box */
+        .status-box {
+            margin-top: 20px;
+            background: #000;
+            border: 2px solid #222;
+            padding: 12px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .status-box.mismatch {
+            color: #ff3333;
+            animation: blink 0.7s infinite;
+        }
+
+        .status-box.match {
+            color: #33ffaa;
+            text-shadow: 0 0 8px rgba(51, 255, 170, 0.6);
+        }
+
+        /* Interface Buttons */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .control-btn {
+            flex: 1;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: 3px outset #fff;
+            text-transform: uppercase;
+        }
+
+        .btn-random {
+            background-color: #a2d2ff;
+            color: #000;
+        }
+
+        .btn-action {
+            background-color: var(--clueless-yellow);
+            color: #000;
+        }
+
+        .control-btn:active {
+            border-style: inset;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="computer-container">
+    <div class="closet-header">Matchmaker v1.0</div>
+    
+    <div class="closet-screen">
+        <div class="wardrobe-matrix">
+            
+            <div class="clothing-row">
+                <button class="nav-btn" onclick="changeItem('tops', -1)">&lt;</button>
+                <div class="item-display" id="display-tops"></div>
+                <button class="nav-btn" onclick="changeItem('tops', 1)">&gt;</button>
+            </div>
+
+            <div class="clothing-row">
+                <button class="nav-btn" onclick="changeItem('bottoms', -1)">&lt;</button>
+                <div class="item-display" id="display-bottoms"></div>
+                <button class="nav-btn" onclick="changeItem('bottoms', 1)">&gt;</button>
+            </div>
+
+            <div class="clothing-row">
+                <button class="nav-btn" onclick="changeItem('shoes', -1)">&lt;</button>
+                <div class="item-display" id="display-shoes"></div>
+                <button class="nav-btn" onclick="changeItem('shoes', 1)">&gt;</button>
+            </div>
+
+        </div>
+
+        <div class="status-box" id="status-display">INITIALIZING...</div>
+
+        <div class="controls">
+            <button class="control-btn btn-random" onclick="randomizeOutfit()">Auto Match</button>
+            <button class="control-btn btn-action" onclick="dressMe()">Dress Me</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pure CSS rendered layout elements matching the three outfits perfectly
+    const clothesDatabase = {
+        tops: [
+            { id: 'plaid-top', outfit: 'plaid', html: '<div class="clothing-art"><div class="top-blazer pattern-plaid"></div></div>' },
+            { id: 'red-top', outfit: 'red-dress', html: '<div class="clothing-art"><div class="top-alaia"></div></div>' },
+            { id: 'gym-top', outfit: 'gym', html: '<div class="clothing-art"><div class="top-gym"></div></div>' }
+        ],
+        bottoms: [
+            { id: 'plaid-bottom', outfit: 'plaid', html: '<div class="clothing-art"><div class="bottom-skirt pattern-plaid"></div></div>' },
+            { id: 'red-bottom', outfit: 'red-dress', html: '<div class="clothing-art"><div class="bottom-alaia"></div></div>' },
+            { id: 'gym-bottom', outfit: 'gym', html: '<div class="clothing-art"><div class="bottom-gym"></div></div>' }
+        ],
+        shoes: [
+            { id: 'plaid-shoes', outfit: 'plaid', html: '<div class="clothing-art"><div class="shoes-container"><div class="shoe-plaid pattern-plaid"></div><div class="shoe-plaid pattern-plaid"></div></div></div>' },
+            { id: 'red-shoes', outfit: 'red-dress', html: '<div class="clothing-art"><div class="shoes-container"><div class="shoe-red"></div><div class="shoe-red"></div></div></div>' },
+            { id: 'gym-shoes', outfit: 'gym', html: '<div class="clothing-art"><div class="shoes-container"><div class="shoe-gym"></div><div class="shoe-gym"></div></div></div>' }
+        ]
+    };
+
+    // Tracks current indexes
+    const currentOutfit = { tops: 0, bottoms: 0, shoes: 0 };
+
+    function initCloset() {
+        updateDisplay('tops');
+        updateDisplay('bottoms');
+        updateDisplay('shoes');
+        checkMatch();
+    }
+
+    function changeItem(category, direction) {
+        let count = clothesDatabase[category].length;
+        currentOutfit[category] = (currentOutfit[category] + direction + count) % count;
+        updateDisplay(category);
+        checkMatch();
+    }
+
+    function updateDisplay(category) {
+        const index = currentOutfit[category];
+        const item = clothesDatabase[category][index];
+        const displayContainer = document.getElementById(`display-${category}`);
+        displayContainer.innerHTML = item.html;
+    }
+
+    function checkMatch() {
+        const topType = clothesDatabase.tops[currentOutfit.tops].outfit;
+        const bottomType = clothesDatabase.bottoms[currentOutfit.bottoms].outfit;
+        const shoeType = clothesDatabase.shoes[currentOutfit.shoes].outfit;
+
+        const statusBox = document.getElementById('status-display');
+
+        if (topType === bottomType && bottomType === shoeType) {
+            statusBox.textContent = "★ MATCH MADE ★";
+            statusBox.className = "status-box match";
+        } else {
+            statusBox.textContent = "⚠️ MIS-MATCH! ⚠️";
+            statusBox.className = "status-box mismatch";
+        }
+    }
+
+    // Cycles dynamically through combinations
+    function randomizeOutfit() {
+        let iterations = 0;
+        const interval = setInterval(() => {
+            currentOutfit.tops = Math.floor(Math.random() * clothesDatabase.tops.length);
+            currentOutfit.bottoms = Math.floor(Math.random() * clothesDatabase.bottoms.length);
+            currentOutfit.shoes = Math.floor(Math.random() * clothesDatabase.shoes.length);
+            
+            updateDisplay('tops');
+            updateDisplay('bottoms');
+            updateDisplay('shoes');
+            checkMatch();
+
+            iterations++;
+            if (iterations > 10) { 
+                clearInterval(interval);
+                // Lands on the iconic yellow plaid set smoothly
+                currentOutfit.tops = 0;
+                currentOutfit.bottoms = 0;
+                currentOutfit.shoes = 0;
+                updateDisplay('tops');
+                updateDisplay('bottoms');
+                updateDisplay('shoes');
+                checkMatch();
+            }
+        }, 120);
+    }
+
+    function dressMe() {
+        const topType = clothesDatabase.tops[currentOutfit.tops].outfit;
+        const bottomType = clothesDatabase.bottoms[currentOutfit.bottoms].outfit;
+
+        if (topType === 'plaid' && bottomType === 'plaid') {
+            alert("Ugh, as if you could wear anything else! Total iconic look.");
+        } else if (topType === bottomType) {
+            alert("Outfit approved! Looking completely synchronized.");
+        } else {
+            alert("Fashion emergency! You're cruising for a fashion citation with this mis-match!");
+        }
+    }
+
+    window.onload = initCloset;
+</script>
+
+</body>
+</html>
